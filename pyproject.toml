@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "f1frame"
+version = "0.1.0"
+description = "Align Formula 1 laps onto one geometric track ruler and write an approach card."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["formula1", "f1", "telemetry", "motorsport"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.26",
+    "pyarrow>=14",
+]
+
+[project.scripts]
+f1-debrief = "f1debrief.cli:main"
+
+[project.optional-dependencies]
+fastf1 = ["fastf1>=3.4", "pandas>=2.1"]
+dev = ["pytest>=8", "pandas>=2.1"]
+
+[tool.setuptools.packages.find]
+where = ["src", "debrief/src"]
+
+[tool.setuptools.package-data]
+f1frame = ["py.typed"]
+f1debrief = ["py.typed", "fixtures/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "debrief/tests"]
+addopts = "-q"
